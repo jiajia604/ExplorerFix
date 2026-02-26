@@ -1,56 +1,16 @@
-========================================================================
-       WIN32 APPLICATION : ExplorerFix
-========================================================================
+《禁止Windows 11任务栏中已打开的文件夹标签显示“-文件资源管理器”字样》
 
+将以下代码保存为 .bat 文件（例如 HideText.bat）：
 
-AppWizard has created this ExplorerFix application for you.  
+@ECHO Off
+PUSHD %~DP0>NUL 2>&1
+REG.exe add "HKCU\Software\Classes\CLSID\{2aa9162e-c906-4dd9-ad0b-3d24a8eef5a0}" /ve /t REG_SZ /d "CLSID_ItemsViewAdapter" /f
+REG.exe add "HKCU\Software\Classes\CLSID\{2aa9162e-c906-4dd9-ad0b-3d24a8eef5a0}\InProcServer32" /ve /t REG_SZ /d "C:\Windows\System32\Windows.UI.FileExplorer.dll_" /f
+REG.exe add "HKCU\Software\Classes\CLSID\{2aa9162e-c906-4dd9-ad0b-3d24a8eef5a0}\InProcServer32" /v "ThreadingModel" /t REG_SZ /d "Apartment" /f
+REG.exe add "HKCU\Software\Classes\CLSID\{6480100b-5a83-4d1e-9f69-8ae5a88e9a33}" /ve /t REG_SZ /d "File Explorer Xaml Island View Adapter" /f
+REG.exe add "HKCU\Software\Classes\CLSID\{6480100b-5a83-4d1e-9f69-8ae5a88e9a33}\InProcServer32" /ve /t REG_SZ /d "C:\Windows\System32\Windows.UI.FileExplorer.dll_" /f
+REG.exe add "HKCU\Software\Classes\CLSID\{6480100b-5a83-4d1e-9f69-8ae5a88e9a33}\InProcServer32" /v "ThreadingModel" /t REG_SZ /d "Apartment" /f
 
-This file contains a summary of what you will find in each of the files that
-make up your ExplorerFix application.
+以管理员身份运行：右键点击该文件，选择“以管理员身份运行”。
 
-ExplorerFix.cpp
-    This is the main application source file.
-
-ExplorerFix.dsp
-    This file (the project file) contains information at the project level and
-    is used to build a single project or subproject. Other users can share the
-    project (.dsp) file, but they should export the makefiles locally.
-	
-
-/////////////////////////////////////////////////////////////////////////////
-AppWizard has created the following resources:
-
-ExplorerFix.rc
-    This is a listing of all of the Microsoft Windows resources that the
-    program uses.  It includes the icons, bitmaps, and cursors that are stored
-    in the RES subdirectory.  This file can be directly edited in Microsoft
-	Visual C++.
-
-res\ExplorerFix.ico
-    This is an icon file, which is used as the application's icon (32x32).
-    This icon is included by the main resource file ExplorerFix.rc.
-
-small.ico
-    %%This is an icon file, which contains a smaller version (16x16)
-	of the application's icon. This icon is included by the main resource
-	file ExplorerFix.rc.
-
-/////////////////////////////////////////////////////////////////////////////
-Other standard files:
-
-StdAfx.h, StdAfx.cpp
-    These files are used to build a precompiled header (PCH) file
-    named ExplorerFix.pch and a precompiled types file named StdAfx.obj.
-
-Resource.h
-    This is the standard header file, which defines new resource IDs.
-    Microsoft Visual C++ reads and updates this file.
-
-/////////////////////////////////////////////////////////////////////////////
-Other notes:
-
-AppWizard uses "TODO:" to indicate parts of the source code you
-should add to or customize.
-
-
-/////////////////////////////////////////////////////////////////////////////
+重启资源管理器：重启“Windows 资源管理器”进程。
